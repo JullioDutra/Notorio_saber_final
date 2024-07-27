@@ -1,0 +1,54 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-exclamation-triangle"></i> Relatório de Pagamentos Pendentes</h1>
+
+    <a href="javascript:history.back()">
+        <i class="fas fa-arrow-left"></i> Voltar
+    </a>
+
+    {% for item in relatorio %}
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2>Aluno: {{ item.aluno.user.get_full_name }}</h2>
+            </div>
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                    <a href="https://wa.me/{{ item.aluno.contato }}?text={{ item.mensagem_texto|urlencode }}" 
+                       target="_blank" 
+                       class="btn btn-success me-2">
+                        <i class="fab fa-whatsapp"></i> Enviar Mensagem
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Mês</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for boleto in item.boletos_pendentes %}
+                                <tr>
+                                    <td>{{ boleto.mes_referencia }}</td>
+                                    <td>{{ boleto.valor }}</td>
+                                    <td>
+                                        {% if boleto.pago %}
+                                            <span class="badge bg-success">Pago</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Pendente</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<h2 class="mt-5 mb-4">Relatório de Boletos por Mês</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Mês</th>
+            <th>Total de Boletos</th>
+            <th>Total Valor</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in boletos_por_mes %}
+        <tr>
+            <td>{{ item.mes|date:"F Y" }}</td>
+            <td>{{ item.total_boletos }}</td>
+            <td>R$ {{ item.total_valor|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhum dado disponível.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

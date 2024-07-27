@@ -1,0 +1,43 @@
+{% extends "base_professor.html" %}
+
+{% block title %}Meu Perfil{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-user-circle"></i> Meu Perfil</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{% if user.profile.photo %}{{ user.profile.photo.url }}{% else %}https://via.placeholder.com/150{% endif %}" class="card-img-top" alt="Foto de Perfil">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ user.get_full_name }}</h5>
+                    <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                    <p class="card-text"><strong>Username:</strong> {{ user.username }}</p>
+                    <!-- Adicione mais campos conforme necessário -->
+                 
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Detalhes do Perfil</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><strong>Primeiro Nome:</strong> {{ user.first_name }}</li>
+                        <li class="list-group-item"><strong>Último Nome:</strong> {{ user.last_name }}</li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

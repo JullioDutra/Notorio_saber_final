@@ -1,0 +1,86 @@
+{% extends "base_aluno.html" %}
+
+{% block title %}Aluno Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card text-center mb-4">
+        <div class="card-body">
+            <h1 class="card-title" style="color: #007BFF;">
+                🎉 Bem-vindo, {{ request.user.first_name }}! 🎉
+            </h1>
+            <p class="card-text" style="font-size: 1.25rem; color: #6c757d;">
+                Estamos felizes em ter você conosco. Aproveite sua jornada!
+            </p>
+        </div>
+    </div>
+    
+
+    <!-- Carousel Section -->
+    <div id="carouselExampleAutoplaying" class="carousel slide mb-5" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for image in carousel_images %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ image.caption }}">
+                {% if image.caption %}
+                <div class="carousel-caption d-none d-md-block">
+                    <p>{{ image.caption }}</p>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Announcements Section -->
+    <div class="mb-5">
+        <h2><i class="fas fa-bullhorn"></i> Avisos Importantes</h2>
+        <ul class="list-group">
+            {% for aviso in avisos %}
+            <li class="list-group-item">
+                <h5 class="mb-1">{{ aviso.titulo }}</h5>
+                <p class="mb-1">{{ aviso.descricao }}</p>
+                <small class="text-muted">Publicado em: {{ aviso.data_publicacao }}</small>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Upcoming Events Section -->
+    <div class="mb-5">
+        <h2><i class="fas fa-calendar-alt"></i> Próximos Eventos</h2>
+        <ul class="list-group">
+            {% for evento in eventos %}
+            <li class="list-group-item">
+                <h5 class="mb-1">{{ evento.titulo }}</h5>
+                <p class="mb-1">{{ evento.descricao }}</p>
+                <small class="text-muted">Data: {{ evento.data_inicio }} - {{ evento.data_fim }}</small>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- Quick Links Section -->
+    <div class="mb-5">
+        <h2><i class="fas fa-link"></i> Links Rápidos</h2>
+        <div class="list-group">
+            <a href="{% url 'minha_financa' %}" class="list-group-item list-group-item-action">
+                <i class="fas fa-wallet"></i> Minha Finança
+            </a>
+            <a href="{% url 'listar_eventos_aluno' %}" class="list-group-item list-group-item-action">
+                <i class="fas fa-calendar-alt"></i> Meus Eventos
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

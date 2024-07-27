@@ -1,0 +1,84 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-danger mt-3" role="alert">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+
+<h2 class="mt-5 mb-4">Gestão de Usuários</h2>
+
+<h3 class="mt-4">Alunos</h3>
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for aluno in alunos %}
+        <tr>
+            <td>{{ aluno.user.get_full_name }}</td>
+            <td>{{ aluno.user.email }}</td>
+            <td>{{ aluno.is_active|yesno:"Ativo,Inativo" }}</td>
+            <td>
+                {% if aluno.is_active %}
+                <a href="{% url 'inativar_aluno' aluno.id %}" class="btn btn-warning btn-sm">
+                    <i class="fas fa-user-slash"></i> Inativar
+                </a>
+                {% else %}
+                <a href="{% url 'ativar_aluno' aluno.id %}" class="btn btn-success btn-sm">
+                    <i class="fas fa-user-check"></i> Ativar
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3 class="mt-4">Professores</h3>
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for professor in professores %}
+        <tr>
+            <td>{{ professor.user.get_full_name }}</td>
+            <td>{{ professor.user.email }}</td>
+            <td>{{ professor.is_active|yesno:"Ativo,Inativo" }}</td>
+            <td>
+                {% if professor.is_active %}
+                <a href="{% url 'inativar_professor' professor.id %}" class="btn btn-warning btn-sm">
+                    <i class="fas fa-user-slash"></i> Inativar
+                </a>
+                {% else %}
+                <a href="{% url 'ativar_professor' professor.id %}" class="btn btn-success btn-sm">
+                    <i class="fas fa-user-check"></i> Ativar
+                </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

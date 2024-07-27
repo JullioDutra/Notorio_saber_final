@@ -1,0 +1,18 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+
+<h1>Relatório de Aulas Avulsas</h1>
+    
+<h2>Valores das Aulas Avulsas por Data</h2>
+<img src="data:image/png;base64,{{ graph_bars }}" alt="Gráfico de Barras">
+
+<h2>Tendência dos Valores das Aulas Avulsas</h2>
+<img src="data:image/png;base64,{{ graph_line }}" alt="Gráfico de Linha">
+
+{% endblock %}

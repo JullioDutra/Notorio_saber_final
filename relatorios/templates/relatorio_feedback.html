@@ -1,0 +1,42 @@
+{% extends "base_administrador.html" %}
+
+{% block title %}Relatório de Feedback{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <h2 class="mb-4"><i class="fas fa-comments"></i> Relatório de Feedback</h2>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Data</th>
+                    <th scope="col">Aluno</th>
+                    <th scope="col">Professor</th>
+                    <th scope="col">Estrelas</th>
+                    <th scope="col">Comentário</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for feedback in feedbacks %}
+                <tr>
+                    <td>{{ feedback.chamada.data|date:"d/m/Y" }}</td>
+                    <td>{{ feedback.chamada.aluno.user.get_full_name }}</td>
+                    <td>{{ feedback.chamada.professor.user.get_full_name }}</td>
+                    <td>{{ feedback.estrelas }} <i class="fas fa-star text-warning"></i></td>
+                    <td>{{ feedback.comentario }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Nenhum feedback registrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

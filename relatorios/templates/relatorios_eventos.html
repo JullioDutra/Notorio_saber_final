@@ -1,0 +1,51 @@
+{% extends "base_administrador.html" %}
+
+{% block title %}Relatórios de Eventos{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+<br>
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-calendar-alt"></i> Relatórios de Eventos</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Descrição</th>
+                    <th scope="col">Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Total de Eventos</td>
+                    <td>{{ total_eventos }}</td>
+                </tr>
+                <tr>
+                    <td>Eventos por Tipo</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            {% for evento in eventos_por_tipo %}
+                            <li>{{ evento.tipo }}: {{ evento.total }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Eventos por Usuário</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            {% for usuario in eventos_por_usuario %}
+                            <li>{{ usuario.username }}: {{ usuario.total_eventos }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+
+<h1>Relatório de Desempenho</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>Matéria</th>
+            <th>Média de Aprovação</th>
+            <th>Notas</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for materia, dados in desempenho_por_materia.items %}
+            <tr>
+                <td>{{ materia }}</td>
+                <td>{{ dados.media_aprovacao }}</td>
+                <td>{{ dados.notas|join:", " }}</td>
+                <td>{{ dados.status }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-user-graduate"></i> Relatório do Aluno</h1>
+    
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="aluno" class="form-label"><i class="fas fa-user"></i> Selecione um Aluno:</label>
+            <select name="aluno_id" id="aluno" class="form-select" required>
+                {% for aluno in alunos %}
+                    <option value="{{ aluno.id }}">{{ aluno.user.get_full_name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-search"></i> Ver Relatório</button>
+    </form>
+
+    {% if aluno_selecionado %}
+        <h2 class="mb-4"><i class="fas fa-user-info"></i> Dados do Aluno: {{ aluno_selecionado.user.get_full_name }}</h2>
+        <div class="card mb-4">
+            <div class="card-body">
+                <img src="{{ aluno_selecionado.foto.url }}" class="img-fluid rounded-start" alt="Imagem da Vaga" width="100px" style="border-radius:20px">
+                <p><strong><i class="fas fa-user-tag"></i> Responsável:</strong> {{ aluno_selecionado.responsavel }}</p>
+                <p><strong><i class="fas fa-phone"></i> Contato:</strong> {{ aluno_selecionado.contato }}</p>
+                <p><strong><i class="fas fa-book"></i> Modalidade:</strong> {{ aluno_selecionado.modalidade.titulo }}</p>
+                <p><strong><i class="fas fa-calendar-check"></i> Quantidade de Aulas:</strong> {{ aluno_selecionado.quantidade_aulas }}</p>
+                <p><strong><i class="fas fa-calendar-day"></i> Aulas Restantes:</strong> {{ aluno_selecionado.aulas_restante }}</p>
+                <p><strong><i class="fas fa-calendar-alt"></i> Data de Início:</strong> {{ aluno_selecionado.data_inicio }}</p>
+                <p><strong><i class="fas fa-calendar-calendar"></i> Data de Pagamento:</strong> {{ aluno_selecionado.dia_pagamento }}</p>
+                <p><strong><i class="fas fa-calendar-times"></i> Data de Fim do Contrato:</strong> {{ aluno_selecionado.fim_contrato }}</p>
+                <p><strong><i class="fas fa-dollar-sign"></i> Valor Total:</strong> {{ aluno_selecionado.valor_total }}</p>
+                <p><strong><i class="fas fa-dollar-sign"></i> Mensalidade:</strong> {{ aluno_selecionado.mensalidade }}</p>
+                <p><strong><i class="fas fa-dollar-sign"></i> Total Já Pago:</strong> {{ aluno_selecionado.total_ja_pago }}</p>
+            </div>
+        </div>
+        <h3 class="mb-3"><i class="fas fa-calendar-check"></i> Datas de Pagamento:</h3>
+        <ul class="list-group">
+            {% for data in aluno_selecionado.datas_pagamento %}
+                <li class="list-group-item">{{ data }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>
+{% endblock %}
+
+v

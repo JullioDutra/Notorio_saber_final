@@ -1,0 +1,112 @@
+{% extends 'base_aluno.html' %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-success mt-3" role="alert">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-wallet"></i> Minha Finança</h1>
+    
+    <!-- Campo de Pesquisa -->
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="search" value="{{ search_query }}" class="form-control" placeholder="Buscar por mês">
+            <button class="btn btn-primary" type="submit">
+                <i class="fas fa-search"></i> Buscar
+            </button>
+        </div>
+    </form>
+    
+    <h2 class="mb-3"><i class="fas fa-file-invoice"></i> Boletos</h2>
+    <ul class="list-group">
+        {% for boleto in page_obj %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-1">Mês: {{ boleto.mes_referencia }}</h5>
+                <p class="mb-1">Valor: {{ boleto.valor }} - Pago: {{ boleto.pago|yesno:"Sim,Não" }}</p>
+                {% if boleto.link_pagamento %}
+                <p class="mb-1">Link de Pagamento: <a href="{{ boleto.link_pagamento }}" target="_blank">Pagar</a></p>
+                {% endif %}
+                {% if boleto.qr_code_pix %}
+                <p class="mb-1">QR Code do Pix:</p>
+                <img src="{{ boleto.qr_code_pix.url }}" alt="QR Code do Pix" class="img-fluid" style="max-width: 200px;">
+                {% endif %}
+                {% if boleto.arquivo %}
+                <a href="{{ boleto.arquivo.url }}" class="btn btn-secondary btn-sm" target="_blank"><i class="fas fa-download"></i> Baixar Boleto</a>
+                {% endif %}
+            </div>
+            {% if not boleto.pago %}
+            <form method="post" enctype="multipart/form-data" class="d-flex flex-column align-items-start">
+                {% csrf_token %}
+                <input type="hidden" name="boleto_id" value="{{ boleto.id }}">
+                <div class="mb-2">
+                    <label for="arquivo" class="form-label"><i class="fas fa-file-upload"></i> Comprovante:</label>
+                    <input type="file" name="arquivo" id="arquivo" class="form-control" required>
+                    <div class="invalid-feedback">
+                        Por favor, anexe um arquivo.
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Enviar Comprovante</button>
+            </form>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    
+    <!-- Paginação -->
+    <div class="mt-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}" aria-label="Primeira">
+                        <span aria-hidden="true">&laquo;&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}" aria-label="Anterior">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{ num }} <span class="sr-only">(atual)</span></span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ num }}{% if search_query %}&search={{ search_query }}{% endif %}">{{ num }}</a>
+                    </li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}" aria-label="Próxima">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}" aria-label="Última">
+                        <span aria-hidden="true">&raquo;&raquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+
+{% endblock %}

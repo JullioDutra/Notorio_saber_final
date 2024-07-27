@@ -1,0 +1,618 @@
+/* tema_claro.css */
+
+/* Reset some default styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Não prefixado */
+   
+}
+
+/* Set the background color and text color */
+body {
+    background-color: #4295f5;
+    color: #343a40;
+}
+
+/* Styling for the container */
+.container-fluid {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background-color:  #182737
+}
+
+/* Styling for the contacts section */
+.contatos {
+    width: 25%;
+    background-color: #182737;
+    border-right: 1px solid #dee2e6;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.userauth {
+    text-align: center;
+    padding-bottom: 20px;
+    color: #fff;
+}
+
+.userauth .avatar {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    background-color: #008B8B;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 24px;
+    display: inline-block;
+    margin-bottom: 10px;
+    border: 1px solid #fff;
+}
+
+.userauth .name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.form-control {
+    position: relative;
+    margin-top: 20px;
+}
+
+.form-control input {
+    padding-right: 30px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: none;
+}
+
+.form-control .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+.users {
+    margin-top: 20px;
+    color: #fff;
+}
+
+.contact-item {
+    margin-bottom: 15px;
+}
+
+.contact-item a {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.3s ease;
+}
+
+.contact-item a:hover {
+    background-color: #e9ecef;
+}
+
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background-color: #6c757d;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 15px;
+    margin-right: 10px;
+}
+
+.avatars {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #008B8B;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 18px;
+    margin-right: 10px;
+    border: 1px solid #fff;
+}
+
+.message-counter {
+    margin-left: auto;
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 12px;
+}
+
+/* Styling for the content section */
+.conteudo {
+    width: 75%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    background-color: #f4f6f9;
+}
+
+.userdestino {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.userdestino .avatar {
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 24px;
+    text-align: center;
+    margin-right: 15px;
+}
+
+.userdestino .info {
+    flex-grow: 1;
+}
+
+.userdestino .info .name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.userdestino .info .status {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.userdestino .info .status.online {
+    background-color: #28a745;
+}
+
+.userdestino .info .status.offline {
+    background-color: #e71212;
+}
+
+/* Styling for the messages section */
+.mensagens {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.mensagem {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mensagem li {
+    margin-bottom: 15px;
+}
+
+.mensagem-enviada, .mensagem-recebida {
+    display: flex;
+    flex-direction: column;
+}
+
+.mensagem-enviada .mensagem-info {
+    align-self: flex-end;
+    text-align: right;
+}
+
+.mensagem-recebida .mensagem-info {
+    align-self: flex-start;
+    text-align: left;
+}
+
+.mensagem-info {
+    max-width: 75%;
+}
+
+.mensagem-info .conteudo-mensagem {
+    padding: 10px 15px;
+    border-radius: 15px;
+    display: inline-block;
+    word-break: break-word;
+}
+
+.mensagem-info.enviada .conteudo-mensagem {
+    background-color: #007bff;
+    color: #fff;
+    margin-top: 5px;
+}
+
+.mensagem-info.recebida .conteudo-mensagem {
+    background-color: #e9ecef;
+    color: #343a40;
+    margin-top: 5px;
+}
+
+.mensagem-info .horario {
+    font-size: 10px;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+.mensagem-enviada .horario {
+    align-self: flex-end;
+    font-size: 10px;
+}
+
+.mensagem-recebida .horario {
+    align-self: flex-start;
+    font-size: 10px;
+}
+
+.mensagem-info .botao-arquivo {
+    display: inline-block;
+    margin-top: 5px;
+    color: #1c7eff;
+}
+
+.mensagem-info .botao-arquivo i {
+    font-size: 24px;
+}
+
+.visualizado, .nao-visualizado {
+    font-size: 10px;
+    margin-top: 5px;
+    text-align: right;
+}
+
+.visualizado {
+    color: #28a745;
+}
+
+.nao-visualizado {
+    color: #dc3545;
+}
+
+/* Styling for the message sending section */
+.enviomensagens {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.enviomensagens .areatexto {
+    flex-grow: 1;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    box-shadow: none;
+    resize: none;
+    overflow: hidden; /* Opcional: evita a exibição de barras de rolagem */
+    width: 100%; /* Define a largura desejada */
+    height:50px; /* Define a altura desejada */
+}
+
+.enviomensagens .button {
+    background-color: transparent;
+    border: none;
+    color:#007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.enviomensagens .button:hover {
+    background-color: #0056b3;
+}
+
+.enviomensagens .botao-opcao {
+    background-color: transparent;
+    color: #007bff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.enviomensagens .botao-opcao:hover {
+    background-color: #0c4781;
+}
+
+.enviomensagens i {
+    font-size: 20px;
+}
+
+.remetente{
+
+    text-align: right;
+}
+
+/* Estilo para o container da caixa de pesquisa */
+.pesquisa {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+  
+  /* Estilo para o campo de pesquisa */
+  .pesquisar {
+    width: 300px; /* largura do campo de pesquisa */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none; /* remover contorno de foco */
+  }
+  
+  /* Estilo para o ícone de pesquisa */
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #007bff; /* cor do ícone */
+    cursor: pointer;
+  }
+  
+  /* Estilo para a lista de opções */
+  #datalistOptions {
+    display: none; /* esconder a lista por padrão */
+    position: absolute;
+    z-index: 1;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    max-height: 200px; /* altura máxima da lista de opções */
+    overflow-y: auto; /* adicionar barra de rolagem vertical se necessário */
+  }
+  
+  /* Estilo para cada item da lista de opções */
+  #datalistOptions option {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  /* Estilo para o item selecionado na lista de opções */
+  #datalistOptions option:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .botao-opcaos{
+    border: none;
+    color: #007bff;
+    background-color: transparent;
+  }
+
+  .logo{
+    position: fixed;
+    align-items: end;
+    background-color: #28a745;
+    width: 30vh;
+  }
+
+  .iniciarconversa{
+    background-color: #28a745;
+    width: 300px;
+    border: 1px solid #ccc;
+    color: #fff;
+    height: 100px;
+    margin-left: 500px;
+  }
+
+  #emoji-picker {
+    position: absolute;
+    bottom: 50px;  /* Ajuste conforme necessário */
+    right: 10px;   /* Ajuste conforme necessário */
+}
+
+/* styles.css */
+.botao-arquivo {
+    display: inline-block;
+    min-width: 200px; /* Largura mínima */
+    padding: 10px 20px; /* Padding interno */
+    margin: 10px 0;
+    color: #fff;
+    background-color: #007BFF;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center; /* Centralizando texto horizontalmente */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap; /* Impedindo quebra de linha */
+}
+
+.botao-arquivo::before {
+    content: "\1F4C4"; /* Unicode para um ícone de arquivo */
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.botao-arquivo:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.botao-arquivo:active {
+    background-color: #004494;
+}
+/* styles.css */
+.botao-arquivo {
+    display: inline-block;
+    min-width: 200px; /* Largura mínima */
+    padding: 10px 20px; /* Padding interno */
+    margin: 10px 0;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center; /* Centralizando texto horizontalmente */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap; /* Impedindo quebra de linha */
+}
+
+.botao-arquivo::before {
+    
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 18px;
+    vertical-align: middle;
+}
+
+.botao-arquivo:hover {
+    background-color: #0056b3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.botao-arquivo:active {
+    background-color: #004494;
+}
+
+.mensagem-enviada, .mensagem-recebida {
+    position: relative;
+  }
+  
+  .reacoes {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .reacoes-pequenas {
+    font-size: 0.8em;
+    color: #888;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+  }
+  
+  .reagir-ativo {
+    display: block !important;
+  }
+  
+  .mensagem-info.reagido .reacoes {
+    display: none;
+  }
+  
+
+  /* Estilos para o contêiner de reações */
+.reacoes {
+    position: absolute;
+    background-color: white ;
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    gap: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Coloca as reações acima dos outros elementos */
+  }
+  
+  /* Estilos para os botões de reação */
+  .reagir {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
+    transition: transform 0.2s;
+  }
+  
+  .reagir:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Estilos para a plus-icon */
+  .plus-icon {
+    cursor: pointer;
+    color: blue;
+    margin-left: 5px;
+    font-size: 10px;
+    margin-right: 10px;
+  }
+  
+  /* Estilos para as reações pequenas */
+  .reacoes-pequenas {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+  }
+  
+  .reacao {
+    font-size: 15px;
+    display: inline-flex;
+    padding: 1px 1px;
+    border-radius: 10px;
+    border: 1px solid #004494;
+    background-color: #fff;
+    margin-bottom: 8px;
+
+  
+
+  }
+
+  .emojionearea .emojionearea-picker {
+    top: auto !important;
+    bottom: 100% !important;
+  }
+
+  .mensagem-item {
+    position: relative;
+    padding-right: 30px;
+}
+
+.selecionar-mensagem {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.selecionar-mensagem:hover {
+    color: #007bff;
+}
+
+#responder-mensagem {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+}
+
+*:focus {
+    outline: none;
+}

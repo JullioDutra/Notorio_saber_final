@@ -1,0 +1,54 @@
+{% extends 'base_aluno.html' %}
+
+{% block content %}
+<h1>Desempenho do Aluno</h1>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Matéria</th>
+                <th>Média de Aprovação</th>
+                <th>Status</th>
+                <th>Notas</th>
+                <th>Comparação com Nota Anterior</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for materia, info in desempenho_por_materia.items %}
+                <tr>
+                    <td>{{ materia.nome }}</td>
+                    <td>{{ info.media_aprovacao }}</td>
+                    <td>{{ info.status }}</td>
+                    <td>
+                        <ul>
+                            {% for nota in info.notas %}
+                                <li>{{ nota.nota }} - {{ nota.data }}</li>
+                            {% empty %}
+                                <li>Sem notas registradas.</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            {% for nota in info.notas %}
+                                {% if nota.comparacao != 'N/A' %}
+                                    <li>{{ nota.nota }} - {{ nota.data }} - {{ nota.comparacao }}</li>
+                                {% else %}
+                                    <li>{{ nota.nota }} - {{ nota.data }} - Sem comparação</li>
+                                {% endif %}
+                            {% empty %}
+                                <li>Sem comparação disponível.</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="5">Não há desempenho registrado para este aluno.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

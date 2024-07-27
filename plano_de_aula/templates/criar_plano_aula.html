@@ -1,0 +1,74 @@
+{% extends "base_aluno.html" %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<h2 class="mt-5 mb-4">Gerenciar Planos de Aula</h2>
+
+<!-- Abas -->
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="criar-tab" data-bs-toggle="tab" href="#criar" role="tab" aria-controls="criar" aria-selected="true">Criar Novo Plano</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="listar-tab" data-bs-toggle="tab" href="#listar" role="tab" aria-controls="listar" aria-selected="false">Planos Criados</a>
+    </li>
+</ul>
+
+<!-- Conteúdo das Abas -->
+<div class="tab-content mt-3" id="myTabContent">
+    <!-- Aba para Criar Novo Plano -->
+    <div class="tab-pane fade show active" id="criar" role="tabpanel" aria-labelledby="criar-tab">
+        {% if messages %}
+        <div class="alert alert-danger mt-3" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" id="titulo" name="titulo" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="descricao">Descrição</label>
+                <textarea id="descricao" name="descricao" class="form-control" rows="4" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="arquivo">Arquivo</label>
+                <input type="file" id="arquivo" name="arquivo" class="form-control" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Salvar Plano
+            </button>
+        </form>
+    </div>
+
+    <!-- Aba para Listar Planos Criados -->
+    <div class="tab-pane fade" id="listar" role="tabpanel" aria-labelledby="listar-tab">
+        <h3 class="mt-5 mb-4">Planos de Aula Criados</h3>
+
+        {% if planos %}
+        <div class="list-group">
+            {% for plano in planos %}
+            <a href="{{ plano.arquivo.url }}" class="list-group-item list-group-item-action" download>
+                <h5 class="mb-1">{{ plano.titulo }}</h5>
+                <p class="mb-1">{{ plano.descricao }}</p>
+                <small>Arquivo: {{ plano.arquivo.name }}</small>
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-muted">Nenhum plano de aula criado ainda.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

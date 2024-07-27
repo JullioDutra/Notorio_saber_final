@@ -1,0 +1,32 @@
+{% extends "base_aluno.html" %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-success mt-3" role="alert">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
+<a href="javascript:history.back()">
+  <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+
+<h2 class="mt-5 mb-4">Configurar Média de Aprovação</h2>
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="media_aprovacao">Média de Aprovação</label>
+        <input type="number" step="0.01" id="media_aprovacao" name="media_aprovacao" class="form-control" placeholder="Digite a média de aprovação" value="{{ aluno.media_aprovacao }}" required>
+        <div class="invalid-feedback">Por favor, insira a média de aprovação.</div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-save"></i> Salvar
+    </button>
+</form>
+
+{% endblock %}

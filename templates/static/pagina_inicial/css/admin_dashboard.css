@@ -1,0 +1,67 @@
+/* Adicione isso no seu arquivo CSS principal ou dentro de uma tag <style> no template */
+
+    .report-section .card-custom {
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card-custom .card-body {
+        padding: 10px;
+        text-align: center;
+        border: 6px solid #f58634;
+        border-radius: 10px;
+        background-color: #fff;
+        color: #003255;
+    }
+    
+    .icon-custom {
+        color: #f58634;
+        margin-bottom: 10px;
+    }
+    
+    .chart-container {
+        margin-top: 30px;
+        text-align: center;
+        width: 300px;
+        margin-right: 20px;
+    }
+    
+    .chart-container h2 {
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        color: #003255;
+    }
+    
+    .chart {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Adicione algum espaçamento entre as seções, se necessário */
+    .container {
+        margin-top: 20px;
+    }
+    
+
+    .table-wrapper {
+        max-height: 400px; /* Ajuste a altura máxima conforme necessário */
+        overflow-y: auto;  /* Adiciona a rolagem vertical se o conteúdo exceder a altura */
+    }
+    
+    .table-controls li {
+        display: inline;
+        margin-right: 10px;
+    }
+    
+    .table-controls a {
+        text-decoration: none;
+        color: #fff;
+        background-color: #f0ad4e;
+        padding: 5px 10px;
+        border-radius: 4px;
+    }
+    
+    .table-controls a:hover {
+        background-color: #ec971f;
+    }
+    

@@ -1,0 +1,150 @@
+{% extends "base_administrador.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container report-section">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-custom mb-3">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-graduate fa-3x icon-custom"></i>
+                    <h5 class="card-title">Total Alunos</h5>
+                    <p class="card-text">{{ relatorio_total_usuarios.total_alunos }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom mb-3">
+                <div class="card-body text-center">
+                    <i class="fas fa-chalkboard-teacher fa-3x icon-custom"></i></i>
+                    <h5 class="card-title">Total de aulas (Mês)</h5>
+                    <p class="card-text">{{ relatorio_aulas_total.total_aulas }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-custom mb-3">
+                <div class="card-body text-center">
+                    <i class="fas fa-hand-holding-usd fa-3x icon-custom"></i></i>
+                    <h5 class="card-title">Valor Arrecadado (Mês)</h5>
+                    <p class="card-text">R$ {{ relatorio_arrecadacao_mes.total_arrecadado }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container chart-section">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-users"></i> Número de Usuários</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="userChart" class="chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-dollar-sign"></i> Relatório Financeiro</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="financialReportChart" class="chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+        <div>
+            <h2>Provisão dos Valores a Receber nos Próximos Meses</h2>
+            <img src="data:image/png;base64,{{ relatorio_provisao }}" alt="Gráfico de Provisão">
+        </div>
+
+        <div>
+            <h2>Feedback Alunos</h2>
+            <img src="data:image/png;base64,{{ relatorio_feedback }}" alt="Gráfico de feedback">
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5><i class="fas fa-clock"></i> Pagamentos em Atraso</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="overduePaymentsChart" class="chart"></canvas>
+                </div>
+            </div>
+        </div>
+
+
+
+</div>
+
+<script>
+    // Dados do Número de Usuários
+    const userChartData = {
+        labels: ['Alunos', 'Professores', 'Administradores'],
+        datasets: [{
+            label: 'Número de Usuários',
+            data: [{{ relatorio_total_usuarios.total_alunos }}, {{ relatorio_total_usuarios.total_professores }}, {{ relatorio_total_usuarios.total_administradores }}],
+            backgroundColor: ['#1196a5', '#f58634', '#363435'] 
+        }]
+    };
+
+    const userChartConfig = {
+        type: 'pie',
+        data: userChartData,
+    };
+
+    new Chart(document.getElementById('userChart'), userChartConfig);
+
+
+
+    // Dados de Alunos com Pagamentos em Atraso
+    const overduePaymentsChartData = {
+        labels: [{% for aluno in relatorio_pagamentos_atrasados %}'{{ aluno.aluno }}',{% endfor %}],
+        datasets: [{
+            label: 'Valor Total',
+            data: [{% for aluno in relatorio_pagamentos_atrasados %}{{ aluno.valor_total }},{% endfor %}],
+            backgroundColor: '#f58634'
+        }]
+    };
+
+    const overduePaymentsChartConfig = {
+        type: 'bar',
+        data: overduePaymentsChartData,
+    };
+
+    new Chart(document.getElementById('overduePaymentsChart'), overduePaymentsChartConfig);
+
+    // Dados do Relatório Financeiro
+    const financialReportChartData = {
+        labels: ['Total Recebido', 'Total Pendente'],
+        datasets: [{
+            label: 'Financeiro',
+            data: [{{ relatorio_financeiro.total_recebido }}, {{ relatorio_financeiro.total_pendente }}],
+            backgroundColor: ['#1196a5', '#ff6384']
+        }]
+    };
+
+    const financialReportChartConfig = {
+        type: 'doughnut',
+        data: financialReportChartData,
+    };
+
+    new Chart(document.getElementById('financialReportChart'), financialReportChartConfig);
+
+</script>
+{% endblock %}

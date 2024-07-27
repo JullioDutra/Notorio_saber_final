@@ -1,0 +1,44 @@
+{% extends "base_administrador.html" %}
+
+{% block title %}Relatório de Aulas Mensais por Professor{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <h2 class="mb-4"><i class="fas fa-chalkboard-teacher"></i> Relatório de Aulas Mensais por Professor</h2>
+
+    {% for item in relatorio %}
+        <div class="mb-5">
+            <h3 class="mt-4"><i class="fas fa-user-tie"></i> {{ item.professor.user.get_full_name }}</h3>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Mês</th>
+                            <th scope="col">Total de Aulas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for chamada in item.chamadas %}
+                        <tr>
+                            <td>{{ chamada.mes|date:"F Y" }}</td>
+                            <td>{{ chamada.total_aulas }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="2" class="text-center">Nenhuma aula registrada para este professor.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% empty %}
+    <p class="text-center">Nenhum professor registrado.</p>
+    {% endfor %}
+</div>
+{% endblock %}

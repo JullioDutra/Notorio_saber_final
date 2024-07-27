@@ -1,0 +1,116 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-success mt-3" role="alert">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> 
+</a>
+
+
+<div class="container-fluid">
+    <h2 class="mb-4"><i class="fas fa-user-plus"></i> Cadastrar Aluno</h2>
+    <form method="post" class="form-container" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-row" style="display: flex;">
+            <div class="mb-3" style="margin-right:10px">
+                <label for="foto" class="form-label">Foto</label>
+                <input class="form-control form-control-sm" id="foto" type="file" name="foto">
+            </div>
+
+            <div class="mb-3" style="margin-right:10px">
+                <label for="foto" class="form-label">Contrato:</label>
+                <input class="form-control form-control-sm" id="foto" type="file" name="contrato">
+            </div>
+
+        
+            <div class="" style="margin-right:10px">
+                <label for="nome" class="form-label" ><i class="fas fa-user"></i> Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" required>
+            </div>
+            <div class="">
+                <label for="sobrenome" class="form-label"><i class="fas fa-user"></i> Sobrenome:</label>
+                <input type="text" class="form-control" id="sobrenome" name="sobrenome" required>
+            </div>
+        </div>
+
+    
+        <div class="form-row">
+
+            <div style="display: flex;">
+
+                <div class="form-group col-md-6" style="margin-right:10px">
+                    <label for="responsavel" class="form-label"><i class="fas fa-user-tie"></i> Responsável:</label>
+                    <input type="text" class="form-control" id="responsavel" name="responsavel" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="contato" class="form-label"><i class="fas fa-phone"></i> Contato:</label>
+                    <input type="text" class="form-control" id="contato" name="contato" required>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email:</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="senha" class="form-label"><i class="fas fa-lock"></i> Senha:</label>
+            <input type="password" class="form-control" id="senha" name="senha" required>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label for="contato" class="form-label">  <i class="fas fa-calendar-day"></i>Tempo de contrato:</label>
+            <input type="number" class="form-control" id="total_meses" name="total_meses" required>
+        </div>
+
+        <div class="form-group">
+            <label for="modalidade" class="form-label"><i class="fas fa-list"></i> Modalidade:</label>
+            <select class="form-control" id="modalidade" name="modalidade" required>
+                {% for modalidade in modalidades %}
+                    <option value="{{ modalidade.id }}">{{ modalidade.titulo }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    <div style="display: flex;">    
+        <div class="form-row">
+                <div class="form-group col-md-6" style="margin-right:180px">
+                    <label for="quantidade_aulas" class="form-label"><i class="fas fa-calendar-day"></i> Quantidade de Aulas:</label>
+                    <input type="number" class="form-control" id="quantidade_aulas" name="quantidade_aulas" required>
+                </div>
+            </div>
+            <div class="form-group" style="margin-right: 20px">
+                <label for="dia_pagamento" class="form-label"><i class="fas fa-calendar-alt"></i> Dia de Pagamento:</label>
+                <input type="date" class="form-control" id="dia_pagamento" name="dia_pagamento" required>
+            </div>
+            <div class="form-group">
+                <label for="mensalidade" class="form-label"><i class="fas fa-dollar-sign"></i>Valor Mensalidade:</label>
+                <input type="number" class="form-control" id="mensalidade" name="mensalidade" required>
+            </div>
+    </div>
+
+
+    <div class="mb-3">
+        <label for="professores" class="form-label">Professores:</label>
+        <select id="professores" name="professores" class="form-select" multiple>
+            {% for professor in professores %}
+                <option value="{{ professor.id }}">{{ professor.user.first_name }} {{ professor.user.last_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+
+        <br>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Cadastrar Aluno</button>
+    </form>
+</div>
+
+{% endblock %}

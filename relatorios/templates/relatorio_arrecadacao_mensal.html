@@ -1,0 +1,52 @@
+{% extends "base_administrador.html" %}
+
+{% block title %}Relatório de Arrecadação Mensal{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-calendar-alt"></i> Relatório de Arrecadação Mensal</h1>
+    
+    <div class="d-flex justify-content-end mb-3">
+        <a class="btn btn-warning me-2" href="{% url 'relatorio_pagamentos_pendentes' %}">
+            <i class="fas fa-exclamation-circle"></i> Pendentes
+        </a>
+        <a class="btn btn-success me-2" href="{% url 'relatorio_pagamentos_realizados' %}">
+            <i class="fas fa-check-circle"></i> Realizados
+        </a>
+        <a class="btn btn-info" href="{% url 'relatorio_boletos_por_mes' %}">
+            <i class="fas fa-file-invoice-dollar"></i> Boletos
+        </a>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Mês/Ano</th>
+                    <th scope="col">Total Arrecadado (R$)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if arrecadacao_mensal %}
+                    {% for mes_ano, total in arrecadacao_mensal.items %}
+                        <tr>
+                            <td>{{ mes_ano }}</td>
+                            <td>R$ {{ total|floatformat:2 }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="2" class="text-center">Nenhum dado disponível. Pode ir tomar um café!</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

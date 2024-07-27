@@ -1,0 +1,66 @@
+{% extends 'base_aluno.html' %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <div class="row">
+        <!-- Lista de Eventos -->
+        <div class="col-lg-4 mb-4">
+            <h2 class="mb-4"><i class="fas fa-calendar-alt"></i> Lista de Eventos</h2>
+            <ul class="event-list">
+                {% for evento in eventos %}
+                <li class="event-item">
+                    <i class="fas fa-calendar-day"></i>
+                    <div class="event-details">
+                        <strong>{{ evento.titulo }}</strong>
+                        <span class="event-date">{{ evento.data_inicio }} a {{ evento.data_fim }}</span>
+                        <p class="event-description">{{ evento.descricao }}</p>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- FullCalendar -->
+        <div class="col-lg-8">
+            <div id="calendar"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Inclua o CSS do Bootstrap -->
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Inclua o CSS do FullCalendar -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet">
+<!-- Inclua o Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+<!-- Inclua o JavaScript do FullCalendar -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'pt-br',
+            initialView: 'dayGridMonth',
+            selectable: true,
+            select: function(info) {
+                document.getElementById('calendar_start').value = info.startStr;
+                document.getElementById('calendar_end').value = info.endStr;
+            },
+            events: '{% url "api_eventos" %}', // Ajuste conforme necessário
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            }
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %}

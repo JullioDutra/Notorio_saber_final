@@ -1,0 +1,60 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-danger mt-3" role="alert">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+
+
+<form method="post" class="form-container">
+    {% csrf_token %}
+
+    <div class="mb-3" style="margin-right:10px">
+        <label for="foto" class="form-label">Foto</label>
+        <input class="form-control form-control-sm" id="foto" type="file" name="foto">
+    </div>
+
+    <div class="form-group">
+        <label for="nome"><i class="fas fa-user"></i> Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="sobrenome"><i class="fas fa-user"></i> Sobrenome:</label>
+        <input type="text" id="sobrenome" name="sobrenome" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+        <input type="email" id="email" name="email" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="senha"><i class="fas fa-lock"></i> Senha:</label>
+        <input type="password" id="senha" name="senha" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="alunos"><i class="fas fa-users"></i> Alunos:</label>
+        <select id="alunos" name="alunos" multiple required>
+            {% for aluno in alunos %}
+                <option value="{{ aluno.id }}">{{ aluno.user.get_full_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <button type="submit" class="submit-button">Cadastrar Professor</button>
+</form>
+
+{% endblock %}

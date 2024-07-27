@@ -1,0 +1,93 @@
+{% extends 'base_administrador.html' %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-danger mt-3" role="alert">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-check-circle"></i> Validar Comprovantes</h1>
+    
+    <form method="get" class="mb-4">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Pesquisar...">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Pesquisar
+            </button>
+        </div>
+    </form>
+
+    {% if page_obj.object_list %}
+    <ul class="list-group">
+        {% for comprovante in page_obj.object_list %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <h5 class="mb-1">{{ comprovante.aluno.user.get_full_name }}</h5>
+                <p class="mb-1">Mês: {{ comprovante.boleto.mes_referencia }}</p>
+                <a href="{{ comprovante.arquivo.url }}" class="btn btn-info btn-sm" target="_blank">
+                    <i class="fas fa-file-alt"></i> Ver Comprovante
+                </a>
+            </div>
+            <form method="post" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="comprovante_id" value="{{ comprovante.id }}">
+                <button type="submit" class="btn btn-success btn-sm">
+                    <i class="fas fa-check"></i> Validar
+                </button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <div class="alert alert-info mt-4" role="alert">
+        Nenhum comprovante no momento. Pode ir tomar um café!
+    </div>
+    {% endif %}
+
+    <nav aria-label="Page navigation example" class="mt-4">
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1{% if query %}&q={{ query }}{% endif %}" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}{% if query %}&q={{ query }}{% endif %}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item"><a class="page-link" href="?page={{ num }}{% if query %}&q={{ query }}{% endif %}">{{ num }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}{% if query %}&q={{ query }}{% endif %}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}{% if query %}&q={{ query }}{% endif %}" aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+
+{% endblock %}

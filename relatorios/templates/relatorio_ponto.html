@@ -1,0 +1,30 @@
+
+    <title>Relatório de Ponto</title>
+</head>
+<body>
+    <h1>Relatório de Ponto dos Professores</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Total de Horas</th>
+                <th>Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in relatorio %}
+            <tr>
+                <td>{{ item.nome }}</td>
+                <td>{{ item.total_horas }}</td>
+                <td>
+                    <ul>
+                        {% for ponto in item.pontos %}
+                        <li>{{ ponto.data }}: {{ ponto.hora_entrada }} - {{ ponto.hora_saida }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+

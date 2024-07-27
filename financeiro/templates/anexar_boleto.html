@@ -1,0 +1,65 @@
+{% extends 'base_administrador.html' %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-success mt-3" role="alert">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-file-upload"></i> Anexar Boleto</h1>
+    <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="aluno_id" class="form-label"><i class="fas fa-user"></i> Aluno:</label>
+            <select name="aluno_id" id="aluno_id" class="form-select" required>
+                <option value="" disabled selected>Selecione um aluno</option>
+                {% for aluno in alunos %}
+                <option value="{{ aluno.id }}">{{ aluno.user.get_full_name }}</option>
+                {% endfor %}
+            </select>
+            <div class="invalid-feedback">
+                Por favor, selecione um aluno.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="mes_referencia" class="form-label"><i class="fas fa-calendar-alt"></i> Mês de Referência:</label>
+            <input type="date" name="mes_referencia" id="mes_referencia" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, selecione uma data válida.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="valor" class="form-label"><i class="fas fa-dollar-sign"></i> Valor:</label>
+            <input type="number" step="0.01" name="valor" id="valor" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, insira um valor válido.
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="chave_pix" class="form-label"><i class="fas fa-key"></i> Chave Pix:</label>
+            <input type="text" name="chave_pix" id="chave_pix" class="form-control" placeholder="Digite a chave Pix">
+        </div>
+        <div class="mb-3">
+            <label for="link_pagamento" class="form-label"><i class="fas fa-link"></i> Link de Pagamento:</label>
+            <input type="url" name="link_pagamento" id="link_pagamento" class="form-control" placeholder="Digite o link de pagamento (opcional)">
+        </div>
+        <div class="mb-3">
+            <label for="arquivo" class="form-label"><i class="fas fa-file"></i> Arquivo:</label>
+            <input type="file" name="arquivo" id="arquivo" class="form-control" required>
+            <div class="invalid-feedback">
+                Por favor, anexe um arquivo.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-upload"></i> Anexar Boleto</button>
+    </form>
+</div>
+{% endblock %}

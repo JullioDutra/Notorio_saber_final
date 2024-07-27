@@ -1,0 +1,43 @@
+{% extends "base_administrador.html" %}
+
+{% block title %}Relatório de Planos de Aula Verificados{% endblock %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-check-circle"></i> Relatório de Planos de Aula Verificados</h1>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Professor</th>
+                    <th scope="col">Plano de Aula</th>
+                    <th scope="col">Aluno</th>
+                    <th scope="col">Data de Verificação</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in relatorio %}
+                    {% for checklist in item.planos_verificados %}
+                    <tr>
+                        <td>{{ item.professor.user.get_full_name }}</td>
+                        <td>{{ checklist.plano_aula.titulo }}</td>
+                        <td>{{ checklist.plano_aula.aluno.user.get_full_name }}</td>
+                        <td>{{ checklist.data_verificacao }}</td>
+                    </tr>
+                    {% endfor %}
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">Nenhum plano de aula verificado registrado.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

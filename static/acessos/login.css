@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+#esquerda h1 {
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #333;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+
+/* Definindo altura de html e body como 100% */
+
+
+html, body {
+    height: 100%;
+}
+
+/* Resetando margens e preenchimentos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo para o topo */
+#top {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    height: 7%;
+}
+
+/* Estilo para a tag main */
+main {
+    display: flex;
+    height: 93%; /* Ocupa 100% da altura disponível */
+}
+
+/* Estilo para a div esquerda */
+#esquerda {
+    flex: 1; /* Faz com que a div esquerda ocupe o espaço disponível */
+    width: 50%; /* Define a largura para 50% */
+    background-color:#fff; /* Cor de fundo para visualização */
+}
+
+/* Estilo para a div direita */
+#direita {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 50%;
+    background-color: #1395a5; /* Cor de fundo para visualização */
+    color: #fff;
+}
+
+#welcome-message {
+    text-align: left; /* Alinha o texto à esquerda */
+    margin-bottom: 20px;
+    padding-left: 20px; /* Adiciona espaço à esquerda */
+    width: 80%; /* Ocupa toda a largura disponível */
+}
+
+#login-container {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.label-input{
+    margin-bottom: 10px;
+}
+
+.login-input,
+.senha-input {
+    width: 100%;
+    padding: 10px ;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+#esqueci-senha {
+    color: #007bff; /* Cor azul */
+    font-size: 13px;
+    cursor: pointer; /* Mostrar cursor de mão ao passar sobre o texto */
+    margin: 0px 0px 10px 0px; /* Adicionar margem superior */
+    
+}
+
+#logar-button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#logar-button:hover {
+    background-color: #0056b3;
+}
+
+
+.plus-icon {
+    font-size: 40px; /* Tamanho do ícone */
+    color: #007bff; /* Cor do ícone */
+    padding: 10px;
+    border: 2px solid #007bff; /* Borda ao redor do ícone */
+    border-radius: 50%; /* Bordas arredondadas */
+    display: inline-block;
+    text-align: center;
+    line-height: 1; /* Alinhamento vertical */
+    transition: background-color 0.3s, color 0.3s; /* Animação de transição */
+}
+
+.plus-icon:hover {
+    background-color: #007bff; /* Cor de fundo ao passar o mouse */
+    color: white; /* Cor do ícone ao passar o mouse */
+}
+
+.form-label{
+
+    color: #000;
+}
+
+.rs{
+    text-align: center;
+}
+
+p{
+    text-align: center;
+}
+

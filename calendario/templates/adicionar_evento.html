@@ -1,0 +1,87 @@
+{% extends 'base_administrador.html' %}
+
+{% block content %}
+
+{% if messages %}
+<div class="alert alert-danger mt-3" role="alert">
+  {% for message in messages %}
+    {{ message }}
+  {% endfor %}
+</div>
+{% endif %}
+
+<a href="javascript:history.back()">
+  <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+  <h2 class="mb-4"><i class="fas fa-calendar-plus"></i> Adicionar Evento</h2>
+  <form method="post" class="form-container" style="display:flex;">
+    {% csrf_token %}
+    <div class="mb-3" style="margin-right:10px">
+      <label for="titulo" class="form-label"><i class="fas fa-heading"></i> Título</label>
+      <input type="text" class="form-control" id="titulo" name="titulo" required>
+    </div>
+    <div class="mb-3" style="margin-right:10px">
+      <label for="descricao" class="form-label"><i class="fas fa-pencil-alt"></i> Descrição</label>
+      <textarea class="form-control" id="descricao" name="descricao"></textarea>
+    </div>
+    <div class="mb-3" style="margin-right:10px">
+      <label for="tipo" class="form-label"><i class="fas fa-tags"></i> Tipo</label>
+      <select class="form-select" id="tipo" name="tipo" required>
+        <option value="R">Recesso</option>
+        <option value="F">Feriado</option>
+        <option value="A">Aula</option>
+      </select>
+    </div>
+    <div class="mb-3" style="margin-right:10px">
+      <label for="calendar_start" class="form-label"><i class="fas fa-calendar-day"></i> Data de Início</label>
+      <input type="text" class="form-control" id="calendar_start" name="data_inicio" required>
+    </div>
+    <div class="mb-3" style="margin-right:10px"> 
+      <label for="calendar_end" class="form-label"><i class="fas fa-calendar-day"></i> Data de Fim</label>
+      <input type="text" class="form-control" id="calendar_end" name="data_fim" required>
+    </div>
+    <div class="mb-3" style="margin-right:10px">
+      <label for="usuarios_destinados" class="form-label"><i class="fas fa-users"></i> Usuários Destinados</label>
+      <select multiple class="form-select" id="usuarios_destinados" name="usuarios_destinados">
+        {% for usuario in usuarios %}
+          <option value="{{ usuario.id }}">{{ usuario.username }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="btn btn-custom">
+      <i class="fas fa-arrow-right"></i>
+      Salvar
+  </button>
+  </form>
+  <div id='calendar' class="mt-5"></div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css" rel="stylesheet" />
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            locale: 'pt-br',
+            initialView: 'dayGridMonth',
+            selectable: true,
+            select: function(info) {
+                document.getElementById('calendar_start').value = info.startStr;
+                document.getElementById('calendar_end').value = info.endStr;
+            },
+            events: '{% url "api_eventos" %}', // Ajuste conforme necessário
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+            }
+        });
+        calendar.render();
+    });
+</script>
+{% endblock %}

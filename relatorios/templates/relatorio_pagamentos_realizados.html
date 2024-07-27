@@ -1,0 +1,48 @@
+{% extends "base_administrador.html" %}
+
+{% block content %}
+
+<a href="javascript:history.back()">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+
+<div class="container mt-5">
+    <h1 class="mb-4"><i class="fas fa-money-check-alt"></i> Relatório de Pagamentos Realizados</h1>
+
+    {% for item in relatorio %}
+        <div class="card mb-4">
+            <div class="card-header bg-light text-white">
+                <h2>Aluno: {{ item.aluno.user.get_full_name }}</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Mês</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for boleto in item.boletos_pagados %}
+                                <tr>
+                                    <td>{{ boleto.mes_referencia }}</td>
+                                    <td>{{ boleto.valor }}</td>
+                                    <td>
+                                        {% if boleto.pago %}
+                                            <span class="badge bg-success">Pago</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Pendente</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
