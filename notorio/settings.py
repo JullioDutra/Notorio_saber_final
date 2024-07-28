@@ -8,10 +8,17 @@ from django.contrib.messages import constants
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'ssz%%3yqg82b2(=4w(^i_(53ru&8b-=@0t&d49na-h)(magecj'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+ALLOWED_HOSTS = ['notoriosaberce.com', '82.112.245.195']
 
 INSTALLED_APPS = [
     'grappelli',
@@ -35,13 +42,7 @@ INSTALLED_APPS = [
     'aulas_avulsas',
     'avisos',
     'desempenho_aluno',
-    'chat',
-
-
-    
-    
-    
-    
+    'chat',   
 ]
 
 MIDDLEWARE = [
@@ -79,22 +80,19 @@ WSGI_APPLICATION = 'notorio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-from decouple import config
 
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
+        'NAME': 'Notorio_saber',
+        'USER': 'jullio',
+        'PASSWORD': 'jd@CS1397',
+        'HOST': 'localhost',  # Ou o endereço do seu servidor PostgreSQL
+        'PORT': '5432',       # A porta padrão do PostgreSQL
     }
 }
+
 
 
 
